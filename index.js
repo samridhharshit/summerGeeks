@@ -12,7 +12,7 @@ const db = require('./database/database');
 
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const msg = {
     to: 'some66819@gmail.com',
