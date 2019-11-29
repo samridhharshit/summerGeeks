@@ -58,7 +58,7 @@ class HostForm extends React.Component {
                             <Label for="name" sm={2}>Name</Label>
                         </Col>
                         <Col sm={8}>
-<!--                         "changeName" calls a function that changes the state of "name" every time the value of the feild is updated -->
+                            <!-- "changeName" calls a function that changes the state of "name" every time the value of the feild is updated -->
                             <Input type="text" ref="name" name="name" id="name" value={this.state.name} onChange={this.changeName} />
                         </Col>
                         <Col></Col>
