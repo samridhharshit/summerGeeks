@@ -1,7 +1,6 @@
-//-----------/usr/bin/mysql -u root -p---------for opening mysql server locally
-
 const mysql = require('mysql');
 
+// loacl database connection establishment
 exports.connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
