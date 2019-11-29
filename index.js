@@ -100,23 +100,23 @@ app.post('/customer/checkinform', (req,res) => {
 //posting customer cheout details
 app.post('/customer/checkoutform', (req,res) => {
 
-//     fetching data from the UI and checking in the database wheather the customer has checkedin or not
+    //fetching data from the UI and checking in the database wheather the customer has checkedin or not
     const phone = req.body.phoneno;
     db.connection.query(`select * from customer where phone = ?`, phone, (err, customerdetails, fields) => {
         if (err) throw err;
         
- //     check if customer exists
+        //check if customer exists
         if (customerdetails[0]) {
-//             if exists then check if he/she has already checked out
+            //if exists then check if he/she has already checked out
             if (customerdetails[0].checkouttime == null) {
-//                 if not send the customer details to the UI for customer side visual verification
+                //if not send the customer details to the UI for customer side visual verification
                 res.send(customerdetails);
             }else {
-//                 if customer has already checkout then the button to submit the checkout form will no tbe activated, hence disabling the person from checking out
+                //if customer has already checkout then the button to submit the checkout form will no tbe activated, hence disabling the person from checking out
                 res.send({display: 'none'});
             }
         } else {
-//            if the customer has not checked in then no checkout option will be shown
+            //if the customer has not checked in then no checkout option will be shown
             res.send("no customer found!");
         }
     });
@@ -125,20 +125,20 @@ app.post('/customer/checkoutform', (req,res) => {
 //submitting final form for checkedin customer
 app.post('/customer/submitcheckoutform', (req, res) => {
     
-//  fetch name and time of checkout from the user
+    //fetch name and time of checkout from the user
     const customernumber = req.body.phoneno;
     const checkouttime = req.body.checkouttime;
     
-//     updating the customer details with his/her checkoutime idetifying the customer by their phone number
+    //updating the customer details with his/her checkoutime idetifying the customer by their phone number
     db.connection.query(`update customer set checkouttime = ? where phone = ? `, [checkouttime, customernumber], (err,              details, fields) => {
             if (err) throw err;
     })
     
-//     format of text that has to be send to mail and sms
+    //format of text that has to be send to mail and sms
     const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone}                                        "checkintime":${details[0].checkintime}` +
                 ` "checkouttime : ${details[0].checkouttime}" "host" : ${details[0].hostId}`;
 
-//      Email Sending
+    //Email Sending
     const msg = {
         to: `${details.email}`,
         from: 'samridhharsh@gmail.com',
@@ -148,7 +148,7 @@ app.post('/customer/submitcheckoutform', (req, res) => {
     sgMail.send(msg)
         .catch(reason => console.log(reason));
     
-//  Message sending
+    //Message sending
     const nexmo = new Nexmo({
         apiKey: 'c129fca1',
         apiSecret: 'NSx2UZUMkdYDOLVV',
