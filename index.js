@@ -130,12 +130,12 @@ app.post('/customer/submitcheckoutform', (req, res) => {
     const checkouttime = req.body.checkouttime;
     
     //updating the customer details with his/her checkoutime idetifying the customer by their phone number
-    db.connection.query(`update customer set checkouttime = ? where phone = ? `, [checkouttime, customernumber], (err,              details, fields) => {
+    db.connection.query(`update customer set checkouttime = ? where phone = ? `, [checkouttime, customernumber], (err,details, fields) => {
             if (err) throw err;
     })
     
     //format of text that has to be send to mail and sms
-    const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone}                                        "checkintime":${details[0].checkintime}` +
+    const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone}"checkintime":${details[0].checkintime}` +
                 ` "checkouttime : ${details[0].checkouttime}" "host" : ${details[0].hostId}`;
 
     //Email Sending
@@ -156,7 +156,7 @@ app.post('/customer/submitcheckoutform', (req, res) => {
               
     const from = 'Nexmo';
     const to = '+91'+deatils.phoneno;
-    const text = 'Your visit informationare: \nName:- '+${details.customerinfo}+"\nEmail:- "+${details.email}+"\nPhone:-              "+${details.phoneno}
+    const text = 'Your visit informationare: \nName:- '+${details.customerinfo}+"\nEmail:- "+${details.email}+"\nPhone:-"+${details.phoneno}
                   "\nCheckin time:- "+${details.checkintime} + "\nCheckout Time:- "+${details.checkouttime};
 
     nexmo.message.sendSms(from, to, text);
