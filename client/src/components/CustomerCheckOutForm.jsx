@@ -1,5 +1,9 @@
 import  React from "react";
+
+// basic structure import
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
+
+// for redirecting get and post requests to the server
 import axios from "axios";
 
 class CustomerCheckOutForm extends React.Component {
@@ -37,31 +41,42 @@ class CustomerCheckOutForm extends React.Component {
         this.setState({checkouttime: event.target.value}, () => {console.log(this.state.checkouttime)});
     };
 
+    //this function waits for the verification of phone number entered at the UI and responds to the feed accordingly
     checkForPresence = async (event) => {
         event.preventDefault();
+        
         const phoneno = {
             phoneno : this.state.phoneno
         };
 
-        let details = {};
+        // empty object
+        let customer = {};
 
-        details = await this.waitForChanges(phoneno);
-        console.log(details[0]);
-        if(details[0]) {
+        // promise is called in order to get verification results from the server and then responds to it accordingly
+        customer = await this.waitForChanges(phoneno);
+
+        //if customer exists
+        if(customer[0]) {
+            
+            //updates state of the "name" and "email" with the information received from the server
             this.setState({
-                name: details[0].customername,
-                email: details[0].email
+                name: customer[0].customername,
+                email: customer[0].email
             })
-        } else console.log('already checked out!')
+        }
+        //if customer does not exist
+        else
+            console.log('Customer hasn\'t checked in yet!')
     };
 
+    //this function calls a promise that retrieves the datas from the server side
      waitForChanges = (phoneno) => {
          return new Promise(function(resolve, reject) {
 
+             //making a post request in order to verify phone number from the database
              axios
                  .post('/customer/checkoutform',phoneno)
                  .then((res) => {
-                     // console.log(res.data);
                      resolve(res.data);
                  })
                  .catch(err => {
@@ -73,29 +88,33 @@ class CustomerCheckOutForm extends React.Component {
     render() {
         return (
             <div className="customerOptions">
+                <!-- checks for the presence of user by comparing the phone number entered by the user with the database                            serverside -->
                 <Form onSubmit={this.checkForPresence}>
                     <FormGroup row>
                         <Col sm={3}>
                             <Label for="phonenumber" sm={2}>Phone Number</Label>
                         </Col>
                         <Col sm={8}>
-                            <Input type="tel" name="phonenumber" id="phonenumber" value={this.state.phoneno} onChange={this.changePhoneNo} />
+                            {/* updates the phone number on every change in the field at UI */}
+                            <Input type="tel" name="phonenumber" id="phonenumber" value={this.state.phoneno} onChange=                                      {this.changePhoneNo} />
                         </Col>
                         <Col></Col>
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 10, offset: 2 }}>
-                            {/*just flip from true to  false*/}
+                            {/*submits the form and passing the phone number to the server to database verfication*/}
                             <Button>Submit</Button>
                         </Col>
                     </FormGroup>
                 </Form>
+                {/* submits the checkout time entered by the customer by redirecting to the server side with the checkout                       information filled */}
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormGroup row>
                         <Col sm={3}>
                             <Label for="name" sm={2}>Name</Label>
                         </Col>
                         <Col sm={8}>
+                            {/* shows the name of the customer for UI verification also not changable */}
                             <Input type="text" ref="name" name="name" id="name" value={this.state.name} disabled required />
                         </Col>
                         <Col></Col>
@@ -105,7 +124,8 @@ class CustomerCheckOutForm extends React.Component {
                             <Label for="email" sm={2}>Email</Label>
                         </Col>
                         <Col sm={8}>
-                            <Input type="email" ref="email" name="email" id="exampleEmail" value={this.state.email} disabled required />
+                            {/* shows the email of the customer for UI verification also not changable */}
+                            <Input type="email" ref="email" name="email" id="exampleEmail" value={this.state.email} disabled                                required />
                         </Col>
                         <Col></Col>
                     </FormGroup>
@@ -114,13 +134,14 @@ class CustomerCheckOutForm extends React.Component {
                             <Label for="checkouttime" sm={2}>CheckOut Time</Label>
                         </Col>
                         <Col sm={8}>
-                            <Input type="datetime-local" ref="checkouttime" name="checkouttime" id="checkouttime" value={this.state.checkouttime} onChange={this.changeCheckOutTime} required />
+                            {/* takes the check out time from the customer and passes it to the server */}
+                            <Input type="datetime-local" ref="checkouttime" name="checkouttime" id="checkouttime" value=                                    {this.state.checkouttime} onChange={this.changeCheckOutTime} required />
                         </Col>
                         <Col></Col>
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 10, offset: 2 }}>
-                            {/*just flip from true to  false*/}
+                            {/* calls the handleSubmit function */}
                             <Button>Submit</Button>
                         </Col>
                     </FormGroup>
