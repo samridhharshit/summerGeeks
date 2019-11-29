@@ -9,6 +9,7 @@ const port = 5000;
 
 const db = require('./database/database');
 
+const Nexmo = require('nexmo');
 
 const sgMail = require('@sendgrid/mail');
 
@@ -66,6 +67,7 @@ app.post('/customer/checkinform', (req,res) => {
                 ` "host" : ${details[0].hostId}`;
             console.log(text);
             // console.log(process.env.SENDGRID_API_KEY);
+//             Email sending
             const msg = {
                 to: `${details.email}`,
                 from: 'samridhharsh@gmail.com',
@@ -74,6 +76,22 @@ app.post('/customer/checkinform', (req,res) => {
             };
             sgMail.send(msg)
                  .catch(reason => console.log(reason));
+            
+//             Message sending
+                const nexmo = new Nexmo({
+                    apiKey: 'c129fca1',
+                    apiSecret: 'NSx2UZUMkdYDOLVV',
+                });
+                
+                const from = 'Nexmo';
+                const to = '+91'+deatils.phoneno;
+                const text = 'Visitor Details are \nName:- '+na+"\nEmail:- "+em+"\nPhone:- "+ph;
+
+                nexmo.message.sendSms(from, to, text);
+
+             res.json({submit:"true"});
+           });
+            
         })
 
 
@@ -118,6 +136,7 @@ app.post('/customer/submitcheckoutform', (req, res) => {
                 ` "checkouttime : ${details[0].checkouttime}" "host" : ${details[0].hostId}`;
             console.log(text);
             // console.log(process.env.SENDGRID_API_KEY);
+//             Email Sending
             const msg = {
                 to: `${details.email}`,
                 from: 'samridhharsh@gmail.com',
@@ -126,6 +145,20 @@ app.post('/customer/submitcheckoutform', (req, res) => {
             };
             sgMail.send(msg)
                  .catch(reason => console.log(reason));
+//             Message sending
+                const nexmo = new Nexmo({
+                    apiKey: 'c129fca1',
+                    apiSecret: 'NSx2UZUMkdYDOLVV',
+                });
+                
+                const from = 'Nexmo';
+                const to = '+91'+deatils.phoneno;
+                const text = 'Your visit informationare: \nName:- '+${details.customerinfo}+"\nEmail:- "+${details.email}+"\nPhone:- "+${details.phoneno}
+                              "\nCheckin time:- "+${details.checkintime} + "\nCheckout Time:- "+${details.checkouttime};
+
+                nexmo.message.sendSms(from, to, text);
+
+             res.json({submit:"true"});
         })
     })
 });
