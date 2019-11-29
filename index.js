@@ -14,14 +14,7 @@ const sgMail = require('@sendgrid/mail');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const msg = {
-    to: 'some66819@gmail.com',
-    from: 'samridhharsh@gmail.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js'
-};
-sgMail.send(msg)
-    .catch(reason => console.log(reason));
+
 
 // parse application/json
 app.use(bodyParser.json());
@@ -74,13 +67,13 @@ app.post('/customer/checkinform', (req,res) => {
             console.log(text);
             // console.log(process.env.SENDGRID_API_KEY);
             const msg = {
-                to: 'some66819@gmail.com',
+                to: `${details.email}`,
                 from: 'samridhharsh@gmail.com',
                 subject: 'Sending with Twilio SendGrid is Fun',
-                text: text
+                text: 'and easy to do anywhere, even with Node.js'
             };
             sgMail.send(msg)
-                .catch(reason => console.log(reason));
+                 .catch(reason => console.log(reason));
         })
 
 
@@ -126,13 +119,13 @@ app.post('/customer/submitcheckoutform', (req, res) => {
             console.log(text);
             // console.log(process.env.SENDGRID_API_KEY);
             const msg = {
-                to: 'some66819@gmail.com',
+                to: `${details.email}`,
                 from: 'samridhharsh@gmail.com',
                 subject: 'Sending with Twilio SendGrid is Fun',
-                text: text
+                text: 'and easy to do anywhere, even with Node.js'
             };
             sgMail.send(msg)
-                .catch(reason => console.log(reason));
+                 .catch(reason => console.log(reason));
         })
     })
 });
