@@ -15,6 +15,7 @@ class CustomerCheckOutForm extends React.Component {
         checkouttime: ''
     };
 
+    //handling the final submit when checkout details has been submitted
     handleFormSubmit = (event) => {
         event.preventDefault();
 
@@ -25,20 +26,13 @@ class CustomerCheckOutForm extends React.Component {
             checkouttime
         };
 
+        //making the post request for saving the data and sending the email and sms
         axios
             .post('/customer/submitcheckoutform', details)
             .then((res) => console.log(res))
             .catch(err => {
                 console.error(err);
             });
-    };
-
-    changePhoneNo = (event) => {
-        this.setState({phoneno: event.target.value}, () => {console.log(this.state.phoneno)});
-    };
-
-    changeCheckOutTime = (event) => {
-        this.setState({checkouttime: event.target.value}, () => {console.log(this.state.checkouttime)});
     };
 
     //this function waits for the verification of phone number entered at the UI and responds to the feed accordingly
@@ -85,10 +79,20 @@ class CustomerCheckOutForm extends React.Component {
          });
      };
 
+    //changes the state "phoneno" and calls a callback
+    changePhoneNo = (event) => {
+        this.setState({phoneno: event.target.value}, () => {console.log(this.state.phoneno)});
+    };
+    
+    //changes the state "checkouttime" and calls a callback
+    changeCheckOutTime = (event) => {
+        this.setState({checkouttime: event.target.value}, () => {console.log(this.state.checkouttime)});
+    };
+
     render() {
         return (
             <div className="customerOptions">
-                <!-- checks for the presence of user by comparing the phone number entered by the user with the database                            serverside -->
+                {/* checks for the presence of user by comparing the phone number entered by the user with the database                            serverside */}
                 <Form onSubmit={this.checkForPresence}>
                     <FormGroup row>
                         <Col sm={3}>
