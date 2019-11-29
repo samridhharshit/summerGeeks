@@ -58,7 +58,7 @@ class HostForm extends React.Component {
                             <Label for="name" sm={2}>Name</Label>
                         </Col>
                         <Col sm={8}>
-                            <!-- "changeName" calls a function that changes the state of "name" every time the value of the feild is updated -->
+                            {/* "changeName" calls a function that changes the state of "name" every time the value of the feild is updated */}
                             <Input type="text" ref="name" name="name" id="name" value={this.state.name} onChange={this.changeName} />
                         </Col>
                         <Col></Col>
@@ -68,7 +68,7 @@ class HostForm extends React.Component {
                             <Label for="email" sm={2}>Email</Label>
                         </Col>
                         <Col sm={8}>
-                            <!--"changeEmail" call a function that changes the state of "email" every time the value of the feild is updated-->
+                            {/*"changeEmail" call a function that changes the state of "email" every time the value of the feild is updated*/}
                             <Input type="email" ref="email" name="email" id="exampleEmail" value={this.state.email} onChange={this.changeEmail} />
                         </Col>
                         <Col></Col>
@@ -78,14 +78,14 @@ class HostForm extends React.Component {
                             <Label for="phonenumber" sm={2}>Phone Number</Label>
                         </Col>
                         <Col sm={8}>
-                          <!--"changePhoneNo" call a function that changes the state of "phonenumber" every time the value of the feild is updated-->
+                            {/*"changePhoneNo" call a function that changes the state of "phonenumber" every time the value of the feild is updated*/}
                             <Input type="tel" ref="phoneno" name="phonenumber" id="phonenumber" value={this.state.phoneno} onChange={this.changePhoneNo} />
                         </Col>
                         <Col></Col>
                     </FormGroup>
                     <FormGroup check row>
                         <Col sm={{ size: 10, offset: 2 }}>
-                            <!--submit button for submitting the form-->
+                            {/*submit button for submitting the form*/}
                             <Button type="submit">Submit</Button>
                         </Col>
                     </FormGroup>
