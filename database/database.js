@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-// loacl database connection establishment
+// local database connection establishment
 exports.connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
