@@ -67,7 +67,7 @@ app.post('/customer/checkinform', (req,res) => {
         if (err) throw err;
     })
     
-     //Format of message to be sent
+    //format of text that has to be send to mail and sms
      const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone} "checkintime": ${details[0].checkintime}` +
                   `"host" : ${details[0].hostId}`;
             
@@ -89,7 +89,7 @@ app.post('/customer/checkinform', (req,res) => {
                 
      const from = 'Nexmo';
      const to = '+91'+deatils.phoneno;
-     const text = 'Visitor Details are \nName:- '+na+"\nEmail:- "+em+"\nPhone:- "+ph;
+     const text = text
 
      nexmo.message.sendSms(from, to, text);
      res.json({submit:"true"});
@@ -135,15 +135,15 @@ app.post('/customer/submitcheckoutform', (req, res) => {
     })
     
     //format of text that has to be send to mail and sms
-    const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone}"checkintime":${details[0].checkintime}` +
-                ` "checkouttime : ${details[0].checkouttime}" "host" : ${details[0].hostId}`;
+    const text = `"name" : ${details[0].customername} "phone" : ${details[0].phone} "checkintime": ${details[0].checkintime}` +
+                  `"checkouttime": ${details[0].checkouttime}  "host" : ${details[0].hostId}`;
 
     //Email Sending
     const msg = {
         to: `${details.email}`,
         from: 'samridhharsh@gmail.com',
         subject: 'Sending with Twilio SendGrid is Fun',
-        text: 'and easy to do anywhere, even with Node.js'
+        text: text
     };
     sgMail.send(msg)
         .catch(reason => console.log(reason));
@@ -156,8 +156,7 @@ app.post('/customer/submitcheckoutform', (req, res) => {
               
     const from = 'Nexmo';
     const to = '+91'+deatils.phoneno;
-    const text = 'Your visit informationare: \nName:- '+${details.customerinfo}+"\nEmail:- "+${details.email}+"\nPhone:-"+${details.phoneno}
-                  "\nCheckin time:- "+${details.checkintime} + "\nCheckout Time:- "+${details.checkouttime};
+    const text = text
 
     nexmo.message.sendSms(from, to, text);
     res.json({submit:"true"});    
