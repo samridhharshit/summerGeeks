@@ -8,7 +8,7 @@ This project was made using React for frontend , NodeJs and ExpressJS for the ba
 
 ### A working gif of the app
 
-![Uploading peeks2.gif…]()
+![peeks2](https://user-images.githubusercontent.com/39849261/69899911-c3d6ab00-1392-11ea-872b-f168c8fd24dc.gif)
 
 ### Customer and Host details:
 
