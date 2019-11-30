@@ -6,6 +6,10 @@ A simple website which takes name, email and phone number of a visitor and send 
 
 This project was made using React for frontend , NodeJs and ExpressJS for the backend and MySQL for Database
 
+### A working gif of the app
+
+![Uploading peeks2.gif…]()
+
 ### Customer and Host details:
 
 For customer details :
