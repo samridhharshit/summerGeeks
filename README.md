@@ -4,6 +4,8 @@
 
 A simple website which takes name, email and phone number of a visitor and send the details once they are checked in to the host (whose details are also entered)
 
+This project was made using React for frontend , NodeJs and ExpressJS for the backend and MySQL for Database
+
 ### Customer and Host details:
 
 For customer details :
@@ -25,8 +27,6 @@ For checking out, there can be three senario, there is no such visitor, the visi
 After checking out, the visitor recieves an email along with the full details of the visit
 
 ![1](https://user-images.githubusercontent.com/39849261/69821429-9c180380-1229-11ea-9ec9-9d77ad3daf91.png)
-
-This project was made using React for frontend , NodeJs and ExpressJS for the backend and MySQL for Database
 
 ### How to run this project :
 
